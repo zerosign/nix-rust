@@ -18,8 +18,8 @@ impl SysError {
         SysError::from_errno(errno())
     }
 
-    pub fn from_errno(errno: int) -> SysError {
-        match from_int(errno) {
+    pub fn from_errno(errno: uint) -> SysError {
+        match from_uint(errno) {
             Some(no) => SysError::new(no),
             _ => SysError::new(UnknownErrno)
         }

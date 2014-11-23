@@ -492,7 +492,7 @@ pub fn pthread_kill(thread: Pthread, sig: SigNum) -> SysResult<()> {
     if res == 0 {
         Ok(())
     } else {
-        Err(SysError::from_errno(res as int))
+        Err(SysError::from_errno(res as uint))
     }
 }
 
