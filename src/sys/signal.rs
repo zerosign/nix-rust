@@ -76,6 +76,7 @@ pub mod signal {
     use libc::c_int;
 
     bitflags!(
+        #[deriving(Copy)]
         flags SockFlag: libc::c_ulong {
             const SA_NOCLDSTOP = 0x00000001,
             const SA_NOCLDWAIT = 0x00000002,
