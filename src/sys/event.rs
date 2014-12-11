@@ -1,7 +1,7 @@
 /* TOOD: Implement for other kqueue based systems
  */
 
-use libc::{timespec, time_t, c_int, c_long, uintptr_t};
+use libc::{timespec, time_t, c_int, c_long};
 use errno::{SysResult, SysError};
 use fcntl::Fd;
 use std::fmt;
@@ -57,6 +57,7 @@ pub enum EventFilter {
 }
 
 bitflags!(
+    #[deriving(Copy)]
     flags EventFlag: u16 {
         const EV_ADD       = 0x0001,
         const EV_DELETE    = 0x0002,
@@ -109,6 +110,7 @@ impl fmt::Show for EventFlag {
 }
 
 bitflags!(
+    #[deriving(Copy)]
     flags FilterFlag: u32 {
         const NOTE_TRIGGER                         = 0x01000000,
         const NOTE_FFNOP                           = 0x00000000,
