@@ -8,6 +8,8 @@ use core::intrinsics::transmute;
 use errno::{SysError, SysResult, from_ffi};
 use pthread::Pthread;
 
+pub use self::SigMaskHow::{SIG_BLOCK, SIG_UNBLOCK, SIG_SETMASK};
+
 pub use libc::consts::os::posix88::{
     SIGHUP,   // 1
     SIGINT,   // 2

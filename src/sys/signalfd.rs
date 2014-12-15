@@ -1,5 +1,6 @@
 use libc;
-use fcntl::{Fd, SfdFlag, F_SETFD, F_SETFL, FD_CLOEXEC, O_NONBLOCK, SFD_CLOEXEC, SFD_NONBLOCK, fcntl};
+use fcntl::{Fd, SfdFlag, FD_CLOEXEC, O_NONBLOCK, SFD_CLOEXEC, SFD_NONBLOCK, fcntl};
+use fcntl::FcntlArg::{F_SETFD, F_SETFL};
 use errno::{SysResult, SysError};
 use sys::signal;
 use sys::signal::SigSet;
