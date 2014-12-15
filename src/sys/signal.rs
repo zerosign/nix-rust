@@ -510,7 +510,7 @@ pub fn sigwaitinfo(set: SigSet) -> SysResult<SigInfo> {
 }
 
 pub fn sigtimedwait(set: SigSet, timeout: Timespec) -> SysResult<SigInfo> {
-    let timespec = libc::timespec { tv_sec: timeout.sec, tv_nsec: timeout.nsec as libc::c_long };
+    let timespec = libc::timespec { tv_sec: timeout.sec as libc::c_int, tv_nsec: timeout.nsec as libc::c_long };
     let mut info = unsafe { mem::uninitialized::<SigInfo>() };
     let res = unsafe { ffi::sigtimedwait(set.inner(), &mut info as *mut SigInfo, &timespec as *const libc::timespec) };
 
