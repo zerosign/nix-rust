@@ -3,9 +3,9 @@
 
 use libc;
 use time::Timespec;
-use core::{mem, i32};
+use core::mem;
 use core::intrinsics::transmute;
-use errno::{SysError, SysResult, from_ffi};
+use errno::{SysError, SysResult};
 use pthread::Pthread;
 
 pub use self::SigMaskHow::{SIG_BLOCK, SIG_UNBLOCK, SIG_SETMASK};
@@ -54,16 +54,19 @@ pub use self::siginfo::SigInfo;
 pub const SIGEMT: libc::c_int = 7;
 
 #[inline]
+#[allow(non_snake_case)]
 pub fn SIG_IGN() -> SigHandler {
     unsafe { transmute(0i) }
 }
 
 #[inline]
+#[allow(non_snake_case)]
 pub fn SIG_IGN_INFO() -> SigInfoHandler {
     unsafe { transmute(0i) }
 }
 
 #[inline]
+#[allow(non_snake_case)]
 pub fn SIG_DFL() -> SigHandler {
     unsafe { transmute(1i) }
 }
@@ -151,13 +154,16 @@ mod siginfo {
     type SigVal = libc::c_int;
 
     #[repr(C)]
+    #[allow(dead_code)]
     struct RawSigInfo {
+        // is this dead code a bug?
         signo:  c_int,
         errno:  c_int,
         code:   c_int,
     }
 
     #[repr(C)]
+    #[deriving(Copy)]
     pub struct SigInfo {
         pad: [u64, ..2]
     }
@@ -367,7 +373,7 @@ pub struct SigSet {
 }
 
 #[repr(C)]
-#[deriving(Show)]
+#[deriving(Show, Copy)]
 pub enum SigMaskHow {
     SIG_BLOCK   = 0,
     SIG_UNBLOCK = 1,
@@ -532,21 +538,18 @@ pub fn sigpending() -> SysResult<SigSet> {
 
 #[cfg(test)]
 mod test {
-    use libc;
     use pthread::pthread_self;
     use time::Timespec;
     use super::{
         SigSet,
         SigAction,
         SA_SIGINFO,
-        SIG_IGN,
         SIG_IGN_INFO,
         SIG_BLOCK,
         SIGQUIT,
         pthread_sigmask,
         pthread_kill,
         sigaction,
-        sigwaitinfo,
         sigtimedwait,
     };
 

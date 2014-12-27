@@ -14,6 +14,7 @@ mod ffi {
 }
 
 #[repr(C)]
+#[deriving(Copy)]
 pub struct SigInfo {
     signo:      u32,
     errno:      i32,    // unused
