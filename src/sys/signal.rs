@@ -291,52 +291,6 @@ pub mod signal {
     pub struct sigset_t {
         bits: [u32, ..4],
     }
-
-    pub type SigHandler = extern fn(libc::c_int, *const super::SigInfo, *const ());
-
-    #[cfg(any(target_os = "macos", target_os = "ios"))]
-    #[repr(C)]
-    #[allow(missing_copy_implementations)]
-    pub struct sigaction {
-        pub sa_handler: SigHandler,
-        sa_tramp: *mut libc::c_void,
-        pub sa_mask: sigset_t,
-        pub sa_flags: SockFlag,
-    }
-
-    #[cfg(any(target_os = "freebsd", target_os = "dragonfly"))]
-    #[repr(C)]
-    pub struct sigaction {
-        pub sa_handler: extern fn(libc::c_int, *const super::SigInfo, *const ()),
-        pub sa_flags: SockFlag,
-        pub sa_mask: sigset_t,
-    }
-
-}
-
-#[cfg(any(target_os = "macos",
-          target_os = "ios",
-          target_os = "freebsd",
-          target_os = "dragonfly"))]
-mod siginfo {
-    use libc;
-    use libc::c_int;
-
-    type SigVal = libc::c_int;
-
-    #[repr(C)]
-    struct SigInfo {
-        pub signo:      c_int,
-        errno:      c_int,
-        code:       c_int,
-        pid:        libc::pid_t,
-        uid:        libc::uid_t,
-        status:     c_int,
-        addr:       *const (),
-        value:      SigVal,
-        band:       libc::c_long,
-        pad:        [libc::c_ulong, ..7]
-    }
 }
 
 mod ffi {
