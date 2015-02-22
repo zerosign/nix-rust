@@ -566,17 +566,122 @@
 <span id="524">524</span>
 <span id="525">525</span>
 <span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
+<span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
+<span id="561">561</span>
+<span id="562">562</span>
+<span id="563">563</span>
+<span id="564">564</span>
+<span id="565">565</span>
+<span id="566">566</span>
+<span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>std</span>::{<span class='ident'>mem</span>, <span class='ident'>ptr</span>, <span class='ident'>fmt</span>};
-<span class='kw'>use</span> <span class='ident'>libc</span>::{<span class='ident'>c_void</span>, <span class='ident'>c_int</span>, <span class='ident'>socklen_t</span>, <span class='ident'>size_t</span>, <span class='ident'>ssize_t</span>};
-<span class='kw'>use</span> <span class='ident'>errno</span>::<span class='ident'>Errno</span>;
-<span class='kw'>use</span> <span class='ident'>fcntl</span>::{<span class='ident'>Fd</span>, <span class='ident'>fcntl</span>, <span class='ident'>FD_CLOEXEC</span>, <span class='ident'>O_NONBLOCK</span>};
-<span class='kw'>use</span> <span class='ident'>fcntl</span>::<span class='ident'>FcntlArg</span>::{<span class='ident'>F_SETFD</span>, <span class='ident'>F_SETFL</span>};
-<span class='kw'>use</span> <span class='ident'>features</span>;
 <span class='kw'>use</span> {<span class='ident'>NixError</span>, <span class='ident'>NixResult</span>, <span class='ident'>from_ffi</span>};
+<span class='kw'>use</span> <span class='ident'>errno</span>::<span class='ident'>Errno</span>;
+<span class='kw'>use</span> <span class='ident'>features</span>;
+<span class='kw'>use</span> <span class='ident'>fcntl</span>::{<span class='ident'>fcntl</span>, <span class='ident'>FD_CLOEXEC</span>, <span class='ident'>O_NONBLOCK</span>};
+<span class='kw'>use</span> <span class='ident'>fcntl</span>::<span class='ident'>FcntlArg</span>::{<span class='ident'>F_SETFD</span>, <span class='ident'>F_SETFL</span>};
+<span class='kw'>use</span> <span class='ident'>libc</span>::{<span class='ident'>c_void</span>, <span class='ident'>c_int</span>, <span class='ident'>socklen_t</span>, <span class='ident'>size_t</span>, <span class='ident'>ssize_t</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::{<span class='ident'>fmt</span>, <span class='ident'>mem</span>, <span class='ident'>net</span>, <span class='ident'>ptr</span>, <span class='ident'>path</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>AsOsStr</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>unix</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>libc</span>::{<span class='ident'>in_addr</span>, <span class='ident'>sockaddr</span>, <span class='ident'>sockaddr_storage</span>, <span class='ident'>sockaddr_in</span>, <span class='ident'>sockaddr_in6</span>, <span class='ident'>sockaddr_un</span>, <span class='ident'>sa_family_t</span>, <span class='ident'>ip_mreq</span>};
+<span class='comment'>/*
+ *
+ * ===== Re-exports =====
+ *
+ */</span>
 
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>libc</span>::{
+    <span class='ident'>in_addr</span>,
+    <span class='ident'>sockaddr</span>,
+    <span class='ident'>sockaddr_storage</span>,
+    <span class='ident'>sockaddr_in</span>,
+    <span class='ident'>sockaddr_in6</span>,
+    <span class='ident'>sockaddr_un</span>,
+    <span class='ident'>sa_family_t</span>,
+    <span class='ident'>ip_mreq</span>
+};
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>consts</span>::<span class='op'>*</span>;
 
 <span class='kw'>mod</span> <span class='ident'>ffi</span> {
@@ -601,12 +706,85 @@
     }
 );
 
+<span class='comment'>/*
+ *
+ * ===== SockAddr =====
+ *
+ */</span>
+
+<span class='doccomment'>/// Represents a socket address</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>SockAddr</span> {
+    <span class='comment'>// TODO: Rename these variants IpV4, IpV6, Unix</span>
     <span class='ident'>SockIpV4</span>(<span class='ident'>sockaddr_in</span>),
     <span class='ident'>SockIpV6</span>(<span class='ident'>sockaddr_in6</span>),
     <span class='ident'>SockUnix</span>(<span class='ident'>sockaddr_un</span>)
 }
+
+<span class='doccomment'>/// Convert a value into a socket address</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AsSockAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>as_sock_addr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>SockAddr</span><span class='op'>&gt;</span>;
+}
+
+<span class='doccomment'>/// Convert a path into a unix domain socket address</span>
+<span class='kw'>impl</span> <span class='ident'>AsSockAddr</span> <span class='kw'>for</span> <span class='ident'>path</span>::<span class='ident'>Path</span> {
+    <span class='kw'>fn</span> <span class='ident'>as_sock_addr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>SockAddr</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>bytes</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>as_os_str</span>().<span class='ident'>as_bytes</span>();
+
+        <span class='prelude-val'>Ok</span>(<span class='ident'>SockAddr</span>::<span class='ident'>SockUnix</span>(<span class='kw'>unsafe</span> {
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>sockaddr_un</span> {
+                <span class='ident'>sun_family</span>: <span class='ident'>AF_UNIX</span> <span class='kw'>as</span> <span class='ident'>sa_family_t</span>,
+                .. <span class='ident'>mem</span>::<span class='ident'>zeroed</span>()
+            };
+
+            <span class='comment'>// Make sure the destination has enough capacity</span>
+            <span class='kw'>if</span> <span class='ident'>bytes</span>.<span class='ident'>len</span>() <span class='op'>&gt;=</span> <span class='ident'>ret</span>.<span class='ident'>sun_path</span>.<span class='ident'>len</span>() {
+                <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>NixError</span>::<span class='ident'>Sys</span>(<span class='ident'>Errno</span>::<span class='ident'>ENAMETOOLONG</span>));
+            }
+
+            <span class='comment'>// Copy the path</span>
+            <span class='ident'>ptr</span>::<span class='ident'>copy_memory</span>(
+                <span class='ident'>ret</span>.<span class='ident'>sun_path</span>.<span class='ident'>as_mut_ptr</span>(),
+                <span class='ident'>bytes</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>i8</span>,
+                <span class='ident'>bytes</span>.<span class='ident'>len</span>());
+
+            <span class='ident'>ret</span>
+        }))
+    }
+}
+
+<span class='doccomment'>/// Convert an inet address into a socket address</span>
+<span class='kw'>impl</span> <span class='ident'>AsSockAddr</span> <span class='kw'>for</span> <span class='ident'>net</span>::<span class='ident'>SocketAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>as_sock_addr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>SockAddr</span><span class='op'>&gt;</span> {
+        <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>net</span>::<span class='ident'>IpAddr</span>;
+        <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>ip</span>() {
+            <span class='ident'>IpAddr</span>::<span class='ident'>V4</span>(<span class='ident'>ip</span>) <span class='op'>=&gt;</span> {
+                <span class='kw'>let</span> <span class='ident'>addr</span> <span class='op'>=</span> <span class='ident'>ip</span>.<span class='ident'>octets</span>();
+                <span class='prelude-val'>Ok</span>(<span class='ident'>SockAddr</span>::<span class='ident'>SockIpV4</span>(<span class='ident'>sockaddr_in</span> {
+                    <span class='ident'>sin_family</span>: <span class='ident'>AF_INET</span> <span class='kw'>as</span> <span class='ident'>sa_family_t</span>,
+                    <span class='ident'>sin_port</span>: <span class='self'>self</span>.<span class='ident'>port</span>(),
+                    <span class='ident'>sin_addr</span>: <span class='ident'>in_addr</span> {
+                        <span class='ident'>s_addr</span>: <span class='ident'>Int</span>::<span class='ident'>from_be</span>(
+                            ((<span class='ident'>addr</span>[<span class='number'>0</span>] <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>24</span>) <span class='op'>|</span>
+                            ((<span class='ident'>addr</span>[<span class='number'>1</span>] <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>16</span>) <span class='op'>|</span>
+                            ((<span class='ident'>addr</span>[<span class='number'>2</span>] <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span>  <span class='number'>8</span>) <span class='op'>|</span>
+                            ((<span class='ident'>addr</span>[<span class='number'>3</span>] <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span>  <span class='number'>0</span>))
+                    },
+                    .. <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>zeroed</span>() }
+                }))
+            }
+            _ <span class='op'>=&gt;</span> <span class='macro'>unimplemented</span><span class='macro'>!</span>()
+        }
+    }
+}
+
+<span class='comment'>/*
+ *
+ * ===== Consts =====
+ *
+ */</span>
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>consts</span> {
