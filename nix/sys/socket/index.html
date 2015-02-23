@@ -43,9 +43,16 @@
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>nix</a>::<wbr><a href='../index.html'>sys</a>::<wbr><a class='mod' href=''>socket</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-19223' href='../../../src/nix/sys/socket/mod.rs.html#1-335'>[src]</a></span></h1>
+        </span><a id='src-19223' href='../../../src/nix/sys/socket/mod.rs.html#1-364'>[src]</a></span></h1>
 <h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use self::os::*;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table><tr><td><code>pub use self::os::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='sockopt/index.html'
+                               title='nix::sys::socket::sockopt'>sockopt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SockFlag.html'
@@ -108,6 +115,12 @@
                         <td class='docblock short'><p>Represents a socket address</p>
 </td>
                     </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.SockLevel.html'
+                               title='nix::sys::socket::SockLevel'>SockLevel</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
                 </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
 <table>
                     <tr>
@@ -127,6 +140,13 @@
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.FromSockAddr.html'
                                title='nix::sys::socket::FromSockAddr'>FromSockAddr</a></td>
                         <td class='docblock short'><p>Convert from a socket address</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.SockOpt.html'
+                               title='nix::sys::socket::SockOpt'>SockOpt</a></td>
+                        <td class='docblock short'><p>Represents a socket option that can be accessed or set</p>
 </td>
                     </tr>
                 
@@ -177,7 +197,8 @@
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.getsockopt.html'
                                title='nix::sys::socket::getsockopt'>getsockopt</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Get the current value for the requested socket option</p>
+</td>
                     </tr>
                 
                     <tr>
@@ -201,7 +222,8 @@
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.setsockopt.html'
                                title='nix::sys::socket::setsockopt'>setsockopt</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Sets the value for the requested socket option</p>
+</td>
                     </tr>
                 
                     <tr>
