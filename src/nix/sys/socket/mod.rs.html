@@ -375,17 +375,6 @@
 <span id="333">333</span>
 <span id="334">334</span>
 <span id="335">335</span>
-<span id="336">336</span>
-<span id="337">337</span>
-<span id="338">338</span>
-<span id="339">339</span>
-<span id="340">340</span>
-<span id="341">341</span>
-<span id="342">342</span>
-<span id="343">343</span>
-<span id="344">344</span>
-<span id="345">345</span>
-<span id="346">346</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> {<span class='ident'>NixError</span>, <span class='ident'>NixResult</span>, <span class='ident'>from_ffi</span>};
 <span class='kw'>use</span> <span class='ident'>errno</span>::<span class='ident'>Errno</span>;
@@ -464,14 +453,12 @@
 }
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>bind</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>ToSockAddr</span><span class='op'>&gt;</span>(<span class='ident'>sockfd</span>: <span class='ident'>Fd</span>, <span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
-    <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>addr</span>::<span class='ident'>SockAddr</span>::<span class='op'>*</span>;
-
     <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
         <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>addr</span>.<span class='ident'>with_sock_addr</span>(<span class='op'>|</span><span class='ident'>addr</span><span class='op'>|</span> {
             <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>addr</span> {
-                <span class='ident'>SockIpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>bind</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_in</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>),
-                <span class='ident'>SockIpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>bind</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_in6</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>),
-                <span class='ident'>SockUnix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>bind</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_un</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>)
+                <span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>bind</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_in</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>),
+                <span class='ident'>SockAddr</span>::<span class='ident'>IpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>bind</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_in6</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>),
+                <span class='ident'>SockAddr</span>::<span class='ident'>Unix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>bind</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_un</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>)
             }
         }))
     };
@@ -541,14 +528,12 @@
 }
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>connect</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>ToSockAddr</span><span class='op'>&gt;</span>(<span class='ident'>sockfd</span>: <span class='ident'>Fd</span>, <span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
-    <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>addr</span>::<span class='ident'>SockAddr</span>::<span class='op'>*</span>;
-
     <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
         <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>addr</span>.<span class='ident'>with_sock_addr</span>(<span class='op'>|</span><span class='ident'>addr</span><span class='op'>|</span> {
             <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>addr</span> {
-                <span class='ident'>SockIpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>connect</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_in</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>),
-                <span class='ident'>SockIpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>connect</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_in6</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>),
-                <span class='ident'>SockUnix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>connect</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_un</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>)
+                <span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>connect</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_in</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>),
+                <span class='ident'>SockAddr</span>::<span class='ident'>IpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>connect</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_in6</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>),
+                <span class='ident'>SockAddr</span>::<span class='ident'>Unix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>ffi</span>::<span class='ident'>connect</span>(<span class='ident'>sockfd</span>, <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>sockaddr_un</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>socklen_t</span>)
             }
         }))
     };
@@ -560,21 +545,20 @@
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
     <span class='kw'>use</span> <span class='ident'>libc</span>::{<span class='ident'>sockaddr_storage</span>, <span class='ident'>sockaddr_in</span>, <span class='ident'>sockaddr_in6</span>, <span class='ident'>sockaddr_un</span>};
     <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>SockAddr</span>;
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>SockAddr</span>::<span class='op'>*</span>;
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>to_sockaddr_ipv4</span>(<span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='ident'>sockaddr_storage</span>) <span class='op'>-&gt;</span> <span class='ident'>SockAddr</span> {
         <span class='kw'>let</span> <span class='ident'>sin</span> : <span class='kw-2'>&amp;</span><span class='ident'>sockaddr_in</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>) };
-        <span class='ident'>SockIpV4</span>( <span class='op'>*</span><span class='ident'>sin</span> )
+        <span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>( <span class='op'>*</span><span class='ident'>sin</span> )
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>to_sockaddr_ipv6</span>(<span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='ident'>sockaddr_storage</span>) <span class='op'>-&gt;</span> <span class='ident'>SockAddr</span> {
         <span class='kw'>let</span> <span class='ident'>sin6</span> : <span class='kw-2'>&amp;</span><span class='ident'>sockaddr_in6</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>) };
-        <span class='ident'>SockIpV6</span>( <span class='op'>*</span><span class='ident'>sin6</span> )
+        <span class='ident'>SockAddr</span>::<span class='ident'>IpV6</span>( <span class='op'>*</span><span class='ident'>sin6</span> )
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>to_sockaddr_unix</span>(<span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='ident'>sockaddr_storage</span>) <span class='op'>-&gt;</span> <span class='ident'>SockAddr</span> {
         <span class='kw'>let</span> <span class='ident'>sun</span> : <span class='kw-2'>&amp;</span><span class='ident'>sockaddr_un</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>addr</span>) };
-        <span class='ident'>SockUnix</span>( <span class='op'>*</span><span class='ident'>sun</span> )
+        <span class='ident'>SockAddr</span>::<span class='ident'>Unix</span>( <span class='op'>*</span><span class='ident'>sun</span> )
     }
 }
 
@@ -617,7 +601,7 @@
 <span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>SockAddr</span> {
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
         <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='ident'>SockAddr</span>::<span class='ident'>SockIpV4</span>(<span class='ident'>sin</span>) <span class='op'>=&gt;</span> <span class='ident'>print_ipv4_addr</span>(<span class='kw-2'>&amp;</span><span class='ident'>sin</span>, <span class='ident'>f</span>),
+            <span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>(<span class='ident'>sin</span>) <span class='op'>=&gt;</span> <span class='ident'>print_ipv4_addr</span>(<span class='kw-2'>&amp;</span><span class='ident'>sin</span>, <span class='ident'>f</span>),
             _ <span class='op'>=&gt;</span> <span class='macro'>unimplemented</span><span class='macro'>!</span>()
         }
     }
@@ -638,12 +622,10 @@
 }
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>sendto</span>(<span class='ident'>sockfd</span>: <span class='ident'>Fd</span>, <span class='ident'>buf</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>], <span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='ident'>SockAddr</span>, <span class='ident'>flags</span>: <span class='ident'>SockMessageFlags</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> {
-    <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>addr</span>::<span class='ident'>SockAddr</span>::<span class='op'>*</span>;
-
     <span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>addr</span> {
-        <span class='ident'>SockIpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>sendto_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>buf</span>, <span class='ident'>flags</span>, <span class='ident'>addr</span>),
-        <span class='ident'>SockIpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>sendto_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>buf</span>, <span class='ident'>flags</span>, <span class='ident'>addr</span>),
-        <span class='ident'>SockUnix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>sendto_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>buf</span>, <span class='ident'>flags</span>, <span class='ident'>addr</span>),
+        <span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>sendto_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>buf</span>, <span class='ident'>flags</span>, <span class='ident'>addr</span>),
+        <span class='ident'>SockAddr</span>::<span class='ident'>IpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>sendto_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>buf</span>, <span class='ident'>flags</span>, <span class='ident'>addr</span>),
+        <span class='ident'>SockAddr</span>::<span class='ident'>Unix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>sendto_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>buf</span>, <span class='ident'>flags</span>, <span class='ident'>addr</span>),
     };
 
     <span class='kw'>if</span> <span class='ident'>ret</span> <span class='op'>&lt;</span> <span class='number'>0</span> {
@@ -703,12 +685,10 @@
 }
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>getpeername</span>(<span class='ident'>sockfd</span>: <span class='ident'>Fd</span>, <span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>SockAddr</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span> {
-    <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>addr</span>::<span class='ident'>SockAddr</span>::<span class='op'>*</span>;
-
     <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>addr</span> {
-        <span class='ident'>SockIpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getpeername_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>),
-        <span class='ident'>SockIpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getpeername_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>),
-        <span class='ident'>SockUnix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getpeername_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>)
+        <span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getpeername_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>),
+        <span class='ident'>SockAddr</span>::<span class='ident'>IpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getpeername_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>),
+        <span class='ident'>SockAddr</span>::<span class='ident'>Unix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getpeername_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>)
     }
 }
 
@@ -725,12 +705,10 @@
 }
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>getsockname</span>(<span class='ident'>sockfd</span>: <span class='ident'>Fd</span>, <span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>SockAddr</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span> {
-    <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>addr</span>::<span class='ident'>SockAddr</span>::<span class='op'>*</span>;
-
     <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>addr</span> {
-        <span class='ident'>SockIpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getsockname_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>),
-        <span class='ident'>SockIpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getsockname_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>),
-        <span class='ident'>SockUnix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getsockname_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>)
+        <span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getsockname_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>),
+        <span class='ident'>SockAddr</span>::<span class='ident'>IpV6</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getsockname_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>),
+        <span class='ident'>SockAddr</span>::<span class='ident'>Unix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> <span class='ident'>getsockname_sockaddr</span>(<span class='ident'>sockfd</span>, <span class='ident'>addr</span>)
     }
 }
 </pre>

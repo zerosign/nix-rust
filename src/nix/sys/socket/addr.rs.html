@@ -183,9 +183,9 @@
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>SockAddr</span> {
     <span class='comment'>// TODO: Rename these variants IpV4, IpV6, Unix</span>
-    <span class='ident'>SockIpV4</span>(<span class='ident'>sockaddr_in</span>),
-    <span class='ident'>SockIpV6</span>(<span class='ident'>sockaddr_in6</span>),
-    <span class='ident'>SockUnix</span>(<span class='ident'>sockaddr_un</span>)
+    <span class='ident'>IpV4</span>(<span class='ident'>sockaddr_in</span>),
+    <span class='ident'>IpV6</span>(<span class='ident'>sockaddr_in6</span>),
+    <span class='ident'>Unix</span>(<span class='ident'>sockaddr_un</span>)
 }
 
 <span class='doccomment'>/// A trait for values which can be converted or resolved to a SockAddr.</span>
@@ -214,7 +214,7 @@
     <span class='kw'>fn</span> <span class='ident'>to_sock_addr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>SockAddr</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>bytes</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>as_os_str</span>().<span class='ident'>as_bytes</span>();
 
-        <span class='prelude-val'>Ok</span>(<span class='ident'>SockAddr</span>::<span class='ident'>SockUnix</span>(<span class='kw'>unsafe</span> {
+        <span class='prelude-val'>Ok</span>(<span class='ident'>SockAddr</span>::<span class='ident'>Unix</span>(<span class='kw'>unsafe</span> {
             <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>sockaddr_un</span> {
                 <span class='ident'>sun_family</span>: <span class='ident'>AF_UNIX</span> <span class='kw'>as</span> <span class='ident'>sa_family_t</span>,
                 .. <span class='ident'>mem</span>::<span class='ident'>zeroed</span>()
@@ -245,7 +245,7 @@
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>ip</span>() {
             <span class='ident'>IpAddr</span>::<span class='ident'>V4</span>(<span class='ident'>ip</span>) <span class='op'>=&gt;</span> {
                 <span class='kw'>let</span> <span class='ident'>addr</span> <span class='op'>=</span> <span class='ident'>ip</span>.<span class='ident'>octets</span>();
-                <span class='prelude-val'>Ok</span>(<span class='ident'>SockAddr</span>::<span class='ident'>SockIpV4</span>(<span class='ident'>sockaddr_in</span> {
+                <span class='prelude-val'>Ok</span>(<span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>(<span class='ident'>sockaddr_in</span> {
                     <span class='ident'>sin_family</span>: <span class='ident'>AF_INET</span> <span class='kw'>as</span> <span class='ident'>sa_family_t</span>,
                     <span class='ident'>sin_port</span>: <span class='self'>self</span>.<span class='ident'>port</span>(),
                     <span class='ident'>sin_addr</span>: <span class='ident'>in_addr</span> {
@@ -274,7 +274,7 @@
         <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
 
         <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>addr</span> {
-            <span class='ident'>SockAddr</span>::<span class='ident'>SockIpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> {
+            <span class='ident'>SockAddr</span>::<span class='ident'>IpV4</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=&gt;</span> {
                 <span class='kw'>let</span> <span class='ident'>ip</span> <span class='op'>=</span> <span class='ident'>Int</span>::<span class='ident'>from_be</span>(<span class='ident'>addr</span>.<span class='ident'>sin_addr</span>.<span class='ident'>s_addr</span>);
                 <span class='kw'>let</span> <span class='ident'>ip</span> <span class='op'>=</span> <span class='ident'>Ipv4Addr</span>::<span class='ident'>new</span>(
                     ((<span class='ident'>ip</span> <span class='op'>&gt;&gt;</span> <span class='number'>24</span>) <span class='kw'>as</span> <span class='ident'>u8</span>) <span class='kw-2'>&amp;</span> <span class='number'>0xff</span>,
@@ -284,7 +284,7 @@
 
                 <span class='prelude-val'>Some</span>(<span class='ident'>net</span>::<span class='ident'>SocketAddr</span>::<span class='ident'>new</span>(<span class='ident'>IpAddr</span>::<span class='ident'>V4</span>(<span class='ident'>ip</span>), <span class='ident'>addr</span>.<span class='ident'>sin_port</span>))
             }
-            <span class='ident'>SockAddr</span>::<span class='ident'>SockIpV6</span>(_) <span class='op'>=&gt;</span> <span class='macro'>unimplemented</span><span class='macro'>!</span>(),
+            <span class='ident'>SockAddr</span>::<span class='ident'>IpV6</span>(_) <span class='op'>=&gt;</span> <span class='macro'>unimplemented</span><span class='macro'>!</span>(),
             _ <span class='op'>=&gt;</span>  <span class='prelude-val'>None</span>,
         }
     }
@@ -292,7 +292,7 @@
 
 <span class='kw'>impl</span> <span class='ident'>FromSockAddr</span> <span class='kw'>for</span> <span class='ident'>path</span>::<span class='ident'>PathBuf</span> {
     <span class='kw'>fn</span> <span class='ident'>from_sock_addr</span>(<span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='ident'>SockAddr</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>path</span>::<span class='ident'>PathBuf</span><span class='op'>&gt;</span> {
-        <span class='kw'>if</span> <span class='kw'>let</span> <span class='ident'>SockAddr</span>::<span class='ident'>SockUnix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=</span> <span class='op'>*</span><span class='ident'>addr</span> {
+        <span class='kw'>if</span> <span class='kw'>let</span> <span class='ident'>SockAddr</span>::<span class='ident'>Unix</span>(<span class='kw-2'>ref</span> <span class='ident'>addr</span>) <span class='op'>=</span> <span class='op'>*</span><span class='ident'>addr</span> {
             <span class='kw'>unsafe</span> {
                 <span class='kw'>let</span> <span class='ident'>bytes</span> <span class='op'>=</span> <span class='ident'>CStr</span>::<span class='ident'>from_ptr</span>(<span class='ident'>addr</span>.<span class='ident'>sun_path</span>.<span class='ident'>as_ptr</span>()).<span class='ident'>to_bytes</span>();
                 <span class='kw'>let</span> <span class='ident'>osstr</span> <span class='op'>=</span> <span class='op'>&lt;</span><span class='ident'>OsStr</span> <span class='kw'>as</span> <span class='ident'>OsStrExt</span><span class='op'>&gt;</span>::<span class='ident'>from_bytes</span>(<span class='ident'>bytes</span>);
