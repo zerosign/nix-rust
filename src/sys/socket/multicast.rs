@@ -1,6 +1,6 @@
 
 use {NixResult, NixError};
-use super::addr::ToInAddr;
+use super::addr::InetAddr;
 use super::consts;
 use libc::in_addr;
 use std::fmt;
@@ -20,19 +20,17 @@ impl fmt::Debug for ip_mreq {
 }
 
 impl ip_mreq {
-    pub fn new<T: ToInAddr, U: ToInAddr>(group: T, interface: Option<U>) -> NixResult<ip_mreq> {
-        let group = match group.to_in_addr() {
-            Some(group) => group,
-            None => return Err(NixError::invalid_argument()),
+    pub fn new(group: &InetAddr, interface: Option<&InetAddr>) -> NixResult<ip_mreq> {
+        // Map the group to an in_addr
+        let group = match *group {
+            InetAddr::V4(group) => group.sin_addr,
+            _ => return Err(NixError::invalid_argument()),
         };
 
+        // Map the interface to an in_addr
         let interface = match interface {
-            Some(interface) => {
-                match interface.to_in_addr() {
-                    Some(interface) => interface,
-                    None => return Err(NixError::invalid_argument()),
-                }
-            }
+            Some(&InetAddr::V4(interface)) => interface.sin_addr,
+            Some(&InetAddr::V6(..)) => return Err(NixError::invalid_argument()),
             None => in_addr { s_addr: consts::INADDR_ANY },
         };
 
