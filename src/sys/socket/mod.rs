@@ -24,9 +24,12 @@ pub mod sockopt;
 
 pub use self::addr::{
     AddressFamily,
+    SockAddr,
     InetAddr,
     UnixAddr,
-    SockAddr,
+    IpAddr,
+    Ipv4Addr,
+    Ipv6Addr,
 };
 pub use libc::{
     in_addr,

@@ -4,7 +4,6 @@ use errno::Errno;
 use libc;
 use std::{fmt, hash, mem, net, ptr};
 use std::ffi::{CStr, OsStr};
-use std::net::{IpAddr, Ipv4Addr};
 use std::num::Int;
 use std::path::Path;
 use std::os::unix::OsStrExt;
@@ -31,43 +30,24 @@ pub enum InetAddr {
 
 impl InetAddr {
     pub fn from_std(std: &net::SocketAddr) -> InetAddr {
-        InetAddr::new(std.ip(), std.port())
+        InetAddr::new(IpAddr::from_std(&std.ip()), std.port())
     }
 
     pub fn new(ip: IpAddr, port: u16) -> InetAddr {
         match ip {
             IpAddr::V4(ref ip) => {
-                let parts = ip.octets();
-                let ip = (((parts[0] as u32) << 24) |
-                          ((parts[1] as u32) << 16) |
-                          ((parts[2] as u32) <<  8) |
-                          ((parts[3] as u32) <<  0)).to_be();
-
                 InetAddr::V4(libc::sockaddr_in {
                     sin_family: AddressFamily::Inet as sa_family_t,
                     sin_port: port.to_be(),
-                    sin_addr: libc::in_addr { s_addr: ip },
+                    sin_addr: ip.0,
                     .. unsafe { mem::zeroed() }
                 })
             }
             IpAddr::V6(ref ip) => {
-                let parts = ip.segments();
-
                 InetAddr::V6(libc::sockaddr_in6 {
                     sin6_family: AddressFamily::Inet6 as sa_family_t,
                     sin6_port: port.to_be(),
-                    sin6_addr: libc::in6_addr {
-                        s6_addr: [
-                            parts[0].to_be(),
-                            parts[1].to_be(),
-                            parts[2].to_be(),
-                            parts[3].to_be(),
-                            parts[4].to_be(),
-                            parts[5].to_be(),
-                            parts[6].to_be(),
-                            parts[7].to_be(),
-                        ]
-                    },
+                    sin6_addr: ip.0,
                     .. unsafe { mem::zeroed() }
                 })
             }
@@ -77,26 +57,8 @@ impl InetAddr {
     /// Gets the IP address associated with this socket address.
     pub fn ip(&self) -> IpAddr {
         match *self {
-            InetAddr::V4(ref sa) => {
-                let ip = Int::from_be(sa.sin_addr.s_addr);
-                IpAddr::V4(Ipv4Addr::new(
-                    ((ip >> 24) as u8) & 0xff,
-                    ((ip >> 16) as u8) & 0xff,
-                    ((ip >>  8) as u8) & 0xff,
-                    ((ip >>  0) as u8) & 0xff))
-            }
-            InetAddr::V6(ref sa) => {
-                let a: &[u16; 8] = &sa.sin6_addr.s6_addr;
-                IpAddr::new_v6(
-                    Int::from_be(a[0]),
-                    Int::from_be(a[1]),
-                    Int::from_be(a[2]),
-                    Int::from_be(a[3]),
-                    Int::from_be(a[4]),
-                    Int::from_be(a[5]),
-                    Int::from_be(a[6]),
-                    Int::from_be(a[7]))
-            }
+            InetAddr::V4(ref sa) => IpAddr::V4(Ipv4Addr(sa.sin_addr)),
+            InetAddr::V6(ref sa) => IpAddr::V6(Ipv6Addr(sa.sin6_addr)),
         }
     }
 
@@ -109,7 +71,7 @@ impl InetAddr {
     }
 
     pub fn to_std(&self) -> net::SocketAddr {
-        net::SocketAddr::new(self.ip(), self.port())
+        net::SocketAddr::new(self.ip().to_std(), self.port())
     }
 
     pub fn to_str(&self) -> String {
@@ -169,6 +131,165 @@ impl fmt::Display for InetAddr {
             InetAddr::V4(_) => write!(f, "{}:{}", self.ip(), self.port()),
             InetAddr::V6(_) => write!(f, "[{}]:{}", self.ip(), self.port()),
         }
+    }
+}
+
+/*
+ *
+ * ===== IpAddr =====
+ *
+ */
+
+pub enum IpAddr {
+    V4(Ipv4Addr),
+    V6(Ipv6Addr),
+}
+
+impl IpAddr {
+    /// Create a new IpAddr that contains an IPv4 address.
+    ///
+    /// The result will represent the IP address a.b.c.d
+    pub fn new_v4(a: u8, b: u8, c: u8, d: u8) -> IpAddr {
+        IpAddr::V4(Ipv4Addr::new(a, b, c, d))
+    }
+
+    /// Create a new IpAddr that contains an IPv6 address.
+    ///
+    /// The result will represent the IP address a:b:c:d:e:f
+    pub fn new_v6(a: u16, b: u16, c: u16, d: u16, e: u16, f: u16, g: u16, h: u16) -> IpAddr {
+        IpAddr::V6(Ipv6Addr::new(a, b, c, d, e, f, g, h))
+    }
+
+    pub fn from_std(std: &net::IpAddr) -> IpAddr {
+        match *std {
+            net::IpAddr::V4(ref std) => IpAddr::V4(Ipv4Addr::from_std(std)),
+            net::IpAddr::V6(ref std) => IpAddr::V6(Ipv6Addr::from_std(std)),
+        }
+    }
+
+    pub fn to_std(&self) -> net::IpAddr {
+        unimplemented!();
+    }
+}
+
+impl fmt::Display for IpAddr {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            IpAddr::V4(ref v4) => v4.fmt(f),
+            IpAddr::V6(ref v6) => v6.fmt(f)
+        }
+    }
+}
+
+/*
+ *
+ * ===== Ipv4Addr =====
+ *
+ */
+
+#[derive(Copy)]
+pub struct Ipv4Addr(pub libc::in_addr);
+
+impl Ipv4Addr {
+    pub fn new(a: u8, b: u8, c: u8, d: u8) -> Ipv4Addr {
+        let ip = (((a as u32) << 24) |
+                  ((b as u32) << 16) |
+                  ((c as u32) <<  8) |
+                  ((d as u32) <<  0)).to_be();
+
+        Ipv4Addr(libc::in_addr { s_addr: ip })
+    }
+
+    pub fn from_std(std: &net::Ipv4Addr) -> Ipv4Addr {
+        let bits = std.octets();
+        Ipv4Addr::new(bits[0], bits[1], bits[2], bits[3])
+    }
+
+    pub fn octets(&self) -> [u8; 4] {
+        let bits = Int::from_be(self.0.s_addr);
+        [(bits >> 24) as u8, (bits >> 16) as u8, (bits >> 8) as u8, bits as u8]
+    }
+}
+
+impl PartialEq for Ipv4Addr {
+    fn eq(&self, other: &Ipv4Addr) -> bool {
+        self.0.s_addr == other.0.s_addr
+    }
+}
+
+impl Eq for Ipv4Addr {
+}
+
+impl hash::Hash for Ipv4Addr {
+    fn hash<H: hash::Hasher>(&self, s: &mut H) {
+        self.0.s_addr.hash(s)
+    }
+}
+
+impl Clone for Ipv4Addr {
+    fn clone(&self) -> Ipv4Addr {
+        *self
+    }
+}
+
+impl fmt::Display for Ipv4Addr {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        let octets = self.octets();
+        write!(fmt, "{}.{}.{}.{}", octets[0], octets[1], octets[2], octets[3])
+    }
+}
+
+/*
+ *
+ * ===== Ipv6Addr =====
+ *
+ */
+
+#[derive(Copy)]
+pub struct Ipv6Addr(pub libc::in6_addr);
+
+impl Ipv6Addr {
+    pub fn new(a: u16, b: u16, c: u16, d: u16, e: u16, f: u16, g: u16, h: u16) -> Ipv6Addr {
+        Ipv6Addr(libc::in6_addr {
+            s6_addr: [
+                a.to_be(),
+                b.to_be(),
+                c.to_be(),
+                d.to_be(),
+                e.to_be(),
+                f.to_be(),
+                g.to_be(),
+                h.to_be(),
+            ]
+        })
+    }
+
+    pub fn from_std(std: &net::Ipv6Addr) -> Ipv6Addr {
+        let s = std.segments();
+        Ipv6Addr::new(s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7])
+    }
+
+    /// Return the eight 16-bit segments that make up this address
+    pub fn segments(&self) -> [u16; 8] {
+        [Int::from_be(self.0.s6_addr[0]),
+         Int::from_be(self.0.s6_addr[1]),
+         Int::from_be(self.0.s6_addr[2]),
+         Int::from_be(self.0.s6_addr[3]),
+         Int::from_be(self.0.s6_addr[4]),
+         Int::from_be(self.0.s6_addr[5]),
+         Int::from_be(self.0.s6_addr[6]),
+         Int::from_be(self.0.s6_addr[7])]
+    }
+
+    pub fn to_std(&self) -> net::Ipv6Addr {
+        let s = self.segments();
+        net::Ipv6Addr::new(s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7])
+    }
+}
+
+impl fmt::Display for Ipv6Addr {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        self.to_std().fmt(fmt)
     }
 }
 
