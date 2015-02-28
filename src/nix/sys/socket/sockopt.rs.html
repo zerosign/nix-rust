@@ -260,6 +260,7 @@
 <span id="218">218</span>
 <span id="219">219</span>
 <span id="220">220</span>
+<span id="221">221</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> {<span class='ident'>NixResult</span>, <span class='ident'>NixError</span>, <span class='ident'>from_ffi</span>};
 <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>ffi</span>, <span class='ident'>consts</span>, <span class='ident'>SockOpt</span>};
@@ -335,6 +336,7 @@
 <span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>TcpNoDelay</span>, <span class='ident'>consts</span>::<span class='ident'>TCP_NODELAY</span>, <span class='ident'>bool</span>);
 <span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>Linger</span>, <span class='ident'>consts</span>::<span class='ident'>SO_LINGER</span>, <span class='ident'>super</span>::<span class='ident'>linger</span>);
 <span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>IpAddMembership</span>, <span class='ident'>consts</span>::<span class='ident'>IP_ADD_MEMBERSHIP</span>, <span class='ident'>super</span>::<span class='ident'>ip_mreq</span>);
+<span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>IpDropMembership</span>, <span class='ident'>consts</span>::<span class='ident'>IP_DROP_MEMBERSHIP</span>, <span class='ident'>super</span>::<span class='ident'>ip_mreq</span>);
 <span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>IpMulticastTtl</span>, <span class='ident'>consts</span>::<span class='ident'>IP_MULTICAST_TTL</span>, <span class='ident'>u8</span>);
 
 <span class='comment'>/*

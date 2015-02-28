@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='../../index.html'>nix</a>::<wbr><a href='../index.html'>sys</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='../epoll/index.html' title=''>epoll</a><a class='mod ' href='../eventfd/index.html' title=''>eventfd</a><a class='mod ' href='../ioctl/index.html' title=''>ioctl</a><a class='mod ' href='../mman/index.html' title=''>mman</a><a class='mod ' href='../signal/index.html' title=''>signal</a><a class='mod current' href='../socket/index.html' title=''>socket</a><a class='mod ' href='../stat/index.html' title=''>stat</a><a class='mod ' href='../termios/index.html' title=''>termios</a><a class='mod ' href='../uio/index.html' title=''>uio</a><a class='mod ' href='../utsname/index.html' title=''>utsname</a><a class='mod ' href='../wait/index.html' title=''>wait</a></div>
+        <p class='location'><a href='../../index.html'>nix</a>::<wbr><a href='../index.html'>sys</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='../epoll/index.html' title=''>epoll</a><a class='mod ' href='../eventfd/index.html' title=''>eventfd</a><a class='mod ' href='../ioctl/index.html' title=''>ioctl</a><a class='mod ' href='../mman/index.html' title=''>mman</a><a class='mod ' href='../signal/index.html' title=''>signal</a><a class='mod current' href='../socket/index.html' title='Socket interface functions'>socket</a><a class='mod ' href='../stat/index.html' title=''>stat</a><a class='mod ' href='../syscall/index.html' title='Indirect system call '>syscall</a><a class='mod ' href='../termios/index.html' title=''>termios</a><a class='mod ' href='../uio/index.html' title=''>uio</a><a class='mod ' href='../utsname/index.html' title=''>utsname</a><a class='mod ' href='../wait/index.html' title=''>wait</a></div>
     </section>
 
     <nav class="sub">
@@ -43,8 +43,11 @@
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>nix</a>::<wbr><a href='../index.html'>sys</a>::<wbr><a class='mod' href=''>socket</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-19223' href='../../../src/nix/sys/socket/mod.rs.html#1-364'>[src]</a></span></h1>
-<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+        </span><a id='src-17823' href='../../../src/nix/sys/socket/mod.rs.html#1-359'>[src]</a></span></h1>
+<div class='docblock'><p>Socket interface functions</p>
+
+<p><a href="http://man7.org/linux/man-pages/man7/socket.7.html">Further reading</a></p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::os::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                     <tr>
@@ -55,8 +58,32 @@
                 </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Ipv4Addr.html'
+                               title='nix::sys::socket::Ipv4Addr'>Ipv4Addr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Ipv6Addr.html'
+                               title='nix::sys::socket::Ipv6Addr'>Ipv6Addr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SockFlag.html'
                                title='nix::sys::socket::SockFlag'>SockFlag</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.UnixAddr.html'
+                               title='nix::sys::socket::UnixAddr'>UnixAddr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.in6_addr.html'
+                               title='nix::sys::socket::in6_addr'>in6_addr</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
@@ -67,7 +94,7 @@
                     </tr>
                 
                     <tr>
-                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.ip_mreq.html'
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ip_mreq.html'
                                title='nix::sys::socket::ip_mreq'>ip_mreq</a></td>
                         <td class='docblock short'></td>
                     </tr>
@@ -110,6 +137,24 @@
                 </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
                     <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.AddressFamily.html'
+                               title='nix::sys::socket::AddressFamily'>AddressFamily</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.InetAddr.html'
+                               title='nix::sys::socket::InetAddr'>InetAddr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.IpAddr.html'
+                               title='nix::sys::socket::IpAddr'>IpAddr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.SockAddr.html'
                                title='nix::sys::socket::SockAddr'>SockAddr</a></td>
                         <td class='docblock short'><p>Represents a socket address</p>
@@ -119,6 +164,14 @@
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.SockLevel.html'
                                title='nix::sys::socket::SockLevel'>SockLevel</a></td>
+                        <td class='docblock short'><p>The protocol level at which to get / set socket options. Used as an
+argument to <code>getsockopt</code> and <code>setsockopt</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.SockType.html'
+                               title='nix::sys::socket::SockType'>SockType</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
@@ -137,23 +190,10 @@
                 </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
                     <tr>
-                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.FromSockAddr.html'
-                               title='nix::sys::socket::FromSockAddr'>FromSockAddr</a></td>
-                        <td class='docblock short'><p>Convert from a socket address</p>
-</td>
-                    </tr>
-                
-                    <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.SockOpt.html'
                                title='nix::sys::socket::SockOpt'>SockOpt</a></td>
-                        <td class='docblock short'><p>Represents a socket option that can be accessed or set</p>
-</td>
-                    </tr>
-                
-                    <tr>
-                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.ToSockAddr.html'
-                               title='nix::sys::socket::ToSockAddr'>ToSockAddr</a></td>
-                        <td class='docblock short'><p>A trait for values which can be converted or resolved to a SockAddr.</p>
+                        <td class='docblock short'><p>Represents a socket option that can be accessed or set. Used as an argument
+to <code>getsockopt</code> and <code>setsockopt</code>.</p>
 </td>
                     </tr>
                 </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
@@ -161,37 +201,43 @@
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.accept.html'
                                title='nix::sys::socket::accept'>accept</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Accept a connection on a socket</p>
+</td>
                     </tr>
                 
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.accept4.html'
                                title='nix::sys::socket::accept4'>accept4</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Accept a connection on a socket</p>
+</td>
                     </tr>
                 
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.bind.html'
                                title='nix::sys::socket::bind'>bind</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Bind a name to a socket</p>
+</td>
                     </tr>
                 
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.connect.html'
                                title='nix::sys::socket::connect'>connect</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Initiate a connection on a socket</p>
+</td>
                     </tr>
                 
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.getpeername.html'
                                title='nix::sys::socket::getpeername'>getpeername</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Get the address of the peer connected to the socket <code>fd</code>.</p>
+</td>
                     </tr>
                 
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.getsockname.html'
                                title='nix::sys::socket::getsockname'>getsockname</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Get the current address to which the socket <code>fd</code> is bound.</p>
+</td>
                     </tr>
                 
                     <tr>
@@ -204,13 +250,16 @@
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.listen.html'
                                title='nix::sys::socket::listen'>listen</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Listen for connections on a socket</p>
+</td>
                     </tr>
                 
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.recvfrom.html'
                                title='nix::sys::socket::recvfrom'>recvfrom</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Receive data from a connectionless or connection-oriented socket. Returns
+the number of bytes read and the socket address of the sender.</p>
+</td>
                     </tr>
                 
                     <tr>
@@ -229,7 +278,8 @@
                     <tr>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.socket.html'
                                title='nix::sys::socket::socket'>socket</a></td>
-                        <td class='docblock short'></td>
+                        <td class='docblock short'><p>Create an endpoint for communication</p>
+</td>
                     </tr>
                 </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>
