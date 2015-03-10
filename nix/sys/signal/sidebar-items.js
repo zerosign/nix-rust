@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["SigNum",""]],"mod":[["signal",""]],"constant":[["SIGABRT",""],["SIGALRM",""],["SIGEMT",""],["SIGFPE",""],["SIGHUP",""],["SIGILL",""],["SIGINT",""],["SIGKILL",""],["SIGPIPE",""],["SIGQUIT",""],["SIGSEGV",""],["SIGTERM",""]],"fn":[["kill",""],["sigaction",""]],"struct":[["SigAction",""],["SigSet",""]]});

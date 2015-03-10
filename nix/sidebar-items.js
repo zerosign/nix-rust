@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["NixResult",""],["c_int",""]],"fn":[["from_ffi",""]],"mod":[["errno",""],["fcntl",""],["features",""],["mount",""],["sched",""],["sys",""],["unistd","Standard symbolic constants and types "]],"enum":[["NixError",""],["c_void","Type used to construct void pointers for use with C."]],"trait":[["NixPath",""]]});
