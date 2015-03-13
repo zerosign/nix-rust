@@ -264,6 +264,7 @@
 <span id="222">222</span>
 <span id="223">223</span>
 <span id="224">224</span>
+<span id="225">225</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> {<span class='ident'>NixResult</span>, <span class='ident'>NixError</span>, <span class='ident'>from_ffi</span>};
 <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>ffi</span>, <span class='ident'>consts</span>, <span class='ident'>SockOpt</span>};
@@ -344,6 +345,7 @@
 <span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>IpMulticastTtl</span>, <span class='ident'>consts</span>::<span class='ident'>IP_MULTICAST_TTL</span>, <span class='ident'>u8</span>);
 <span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>ReceiveTimeout</span>, <span class='ident'>consts</span>::<span class='ident'>SO_RCVTIMEO</span>, <span class='ident'>TimeVal</span>);
 <span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>SendTimeout</span>, <span class='ident'>consts</span>::<span class='ident'>SO_SNDTIMEO</span>, <span class='ident'>TimeVal</span>);
+<span class='macro'>sockopt_impl</span><span class='macro'>!</span>(<span class='ident'>Broadcast</span>, <span class='ident'>consts</span>::<span class='ident'>SO_BROADCAST</span>, <span class='ident'>bool</span>);
 
 <span class='comment'>/*
  *

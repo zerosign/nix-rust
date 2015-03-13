@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Winsize",""]],"enum":[["IoctlArg",""]],"fn":[["ioctl",""]]});
+initSidebarItems({"enum":[["IoctlArg",""]],"fn":[["ioctl",""]],"struct":[["Winsize",""]]});
