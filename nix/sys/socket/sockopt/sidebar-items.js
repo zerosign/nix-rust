@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["IpAddMembership",""],["IpDropMembership",""],["IpMulticastTtl",""],["Linger",""],["ReuseAddr",""],["ReusePort",""],["TcpNoDelay",""]]});
+initSidebarItems({"struct":[["IpAddMembership",""],["IpDropMembership",""],["IpMulticastTtl",""],["Linger",""],["ReceiveTimeout",""],["ReuseAddr",""],["ReusePort",""],["SendTimeout",""],["TcpNoDelay",""]]});
