@@ -84,6 +84,7 @@
 <span id="42">42</span>
 <span id="43">43</span>
 <span id="44">44</span>
+<span id="45">45</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>libc</span>;
 <span class='kw'>use</span> <span class='ident'>fcntl</span>::<span class='ident'>Fd</span>;
@@ -109,7 +110,8 @@
         <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TIOCGWINSZ</span>: <span class='ident'>c_ulong</span> <span class='op'>=</span> <span class='number'>0x40087468</span>;
     }
 
-    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>)]</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>,
+              <span class='ident'>all</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;android&quot;</span>, <span class='ident'>not</span>(<span class='ident'>target_arch</span> <span class='op'>=</span> <span class='string'>&quot;mips&quot;</span>))))]</span>
     <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>os</span> {
         <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='ident'>c_int</span>;
         <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TIOCGWINSZ</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x5413</span>;

@@ -430,7 +430,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::{<span class='ident'>mem</span>, <span class='ident'>ptr</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>CString</span>;
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;android&quot;</span>))]</span>
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>linux</span>::<span class='op'>*</span>;
 
 <span class='kw'>mod</span> <span class='ident'>ffi</span> {
@@ -667,7 +667,7 @@
     }
 }
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;android&quot;</span>))]</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pipe2</span>(<span class='ident'>flags</span>: <span class='ident'>OFlag</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span>(<span class='ident'>Fd</span>, <span class='ident'>Fd</span>)<span class='op'>&gt;</span> {
     <span class='kw'>type</span> <span class='ident'>F</span> <span class='op'>=</span> <span class='kw'>unsafe</span> <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> <span class='kw'>fn</span>(<span class='ident'>fds</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_int</span>, <span class='ident'>flags</span>: <span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>c_int</span>;
 
@@ -776,7 +776,7 @@
     <span class='ident'>from_ffi</span>(<span class='ident'>res</span>)
 }
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;android&quot;</span>))]</span>
 <span class='kw'>mod</span> <span class='ident'>linux</span> {
     <span class='kw'>use</span> <span class='ident'>sys</span>::<span class='ident'>syscall</span>::{<span class='ident'>syscall</span>, <span class='ident'>SYSPIVOTROOT</span>};
     <span class='kw'>use</span> <span class='ident'>errno</span>::<span class='ident'>Errno</span>;

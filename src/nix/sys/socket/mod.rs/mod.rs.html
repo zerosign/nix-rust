@@ -534,7 +534,7 @@
 <span class='doccomment'>/// Accept a connection on a socket</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// [Further reading](http://man7.org/linux/man-pages/man2/accept.2.html)</span>
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>any</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;macos&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;ios&quot;</span>)))]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>any</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;macos&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;ios&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;android&quot;</span>)))]</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>accept4</span>(<span class='ident'>sockfd</span>: <span class='ident'>Fd</span>, <span class='ident'>flags</span>: <span class='ident'>SockFlag</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>Fd</span><span class='op'>&gt;</span> {
     <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='ident'>sockaddr</span>;
 
@@ -564,7 +564,7 @@
 <span class='doccomment'>/// Accept a connection on a socket</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// [Further reading](http://man7.org/linux/man-pages/man2/accept.2.html)</span>
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;macos&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;ios&quot;</span>))]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>any</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;macos&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;ios&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;android&quot;</span>))]</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>accept4</span>(<span class='ident'>sockfd</span>: <span class='ident'>Fd</span>, <span class='ident'>flags</span>: <span class='ident'>SockFlag</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>Fd</span><span class='op'>&gt;</span> {
     <span class='ident'>accept4_polyfill</span>(<span class='ident'>sockfd</span>, <span class='ident'>flags</span>)
 }
