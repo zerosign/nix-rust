@@ -449,7 +449,7 @@
 };
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>consts</span>::<span class='op'>*</span>;
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>, <span class='ident'>FromPrimitive</span>)]</span>
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>i32</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>SockType</span> {
     <span class='ident'>Stream</span> <span class='op'>=</span> <span class='ident'>consts</span>::<span class='ident'>SOCK_STREAM</span>,
@@ -732,7 +732,7 @@
     }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>sockaddr_storage_to_addr</span>(
+<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>sockaddr_storage_to_addr</span>(
     <span class='ident'>addr</span>: <span class='kw-2'>&amp;</span><span class='ident'>sockaddr_storage</span>,
     <span class='ident'>len</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>NixResult</span><span class='op'>&lt;</span><span class='ident'>SockAddr</span><span class='op'>&gt;</span> {
 
