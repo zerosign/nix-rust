@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["WNOHANG",""]],"enum":[["WaitStatus",""]],"struct":[["WaitPidFlag",""]],"fn":[["waitpid",""]]});
+initSidebarItems({"constant":[["WNOHANG",""]],"fn":[["waitpid",""]],"struct":[["WaitPidFlag",""]],"enum":[["WaitStatus",""]]});

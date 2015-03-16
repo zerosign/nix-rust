@@ -278,8 +278,8 @@
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>target_arch</span> <span class='op'>=</span> <span class='string'>&quot;x86&quot;</span>, <span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>))]</span>
 <span class='kw'>mod</span> <span class='ident'>cpuset_attribs</span> {
     <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>CpuMask</span>;
-    <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CPU_SETSIZE</span>:           <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>1024us</span>;
-    <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CPU_MASK_BITS</span>:         <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>32us</span>;
+    <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CPU_SETSIZE</span>:           <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>1024</span>;
+    <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CPU_MASK_BITS</span>:         <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>32</span>;
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_cpu_mask_flag</span>(<span class='ident'>cur</span>: <span class='ident'>CpuMask</span>, <span class='ident'>bit</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>CpuMask</span> {

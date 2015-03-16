@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["EFD_CLOEXEC",""],["EFD_NONBLOCK",""],["EFD_SEMAPHORE",""]],"fn":[["eventfd",""]],"struct":[["EventFdFlag",""]]});
+initSidebarItems({"struct":[["EventFdFlag",""]],"constant":[["EFD_CLOEXEC",""],["EFD_NONBLOCK",""],["EFD_SEMAPHORE",""]],"fn":[["eventfd",""]]});
