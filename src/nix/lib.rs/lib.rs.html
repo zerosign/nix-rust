@@ -112,7 +112,7 @@
 <span class='doccomment'>//! defined in.</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span> <span class='op'>=</span> <span class='string'>&quot;nix&quot;</span>]</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>collections</span>, <span class='ident'>core</span>, <span class='ident'>net</span>, <span class='ident'>linkage</span>, <span class='ident'>libc</span>, <span class='ident'>std_misc</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>collections</span>, <span class='ident'>core</span>, <span class='ident'>io_ext</span>, <span class='ident'>linkage</span>, <span class='ident'>libc</span>, <span class='ident'>std_misc</span>)]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>)]</span>
 
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
@@ -159,7 +159,7 @@
  */</span>
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>OsStr</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>unix</span>::<span class='ident'>OsStrExt</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>unix</span>::<span class='ident'>ffi</span>::<span class='ident'>OsStrExt</span>;
 
 <span class='doccomment'>/// Converts a value to an external (FFI) string representation</span>
 <span class='kw'>trait</span> <span class='ident'>AsExtStr</span> {

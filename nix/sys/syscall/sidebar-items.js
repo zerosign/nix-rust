@@ -1,1 +1,1 @@
-initSidebarItems({"type":[["Syscall",""]],"static":[["SYSPIVOTROOT",""]],"fn":[["syscall",""]]});
+initSidebarItems({"fn":[["syscall",""]],"type":[["Syscall",""]],"static":[["SYSPIVOTROOT",""]]});
