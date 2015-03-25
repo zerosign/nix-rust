@@ -1,1 +1,0 @@
-initSidebarItems({"type":[["NixResult",""]],"fn":[["from_ffi",""]],"trait":[["NixPath",""]],"enum":[["NixError",""]]});
