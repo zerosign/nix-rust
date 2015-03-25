@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["errno","Returns the platform-specific value of errno"]],"constant":[["EDEADLOCK",""],["EWOULDBLOCK",""]],"enum":[["Errno",""]]});
+initSidebarItems({"enum":[["Errno",""]],"constant":[["EDEADLOCK",""],["EWOULDBLOCK",""]],"fn":[["errno","Returns the platform-specific value of errno"]]});
