@@ -6,8 +6,8 @@ pub mod epoll;
 pub mod event;
 
 // Dont' support eventfd for now
-// #[cfg(any(target_os = "linux", target_os = "android"))]
-// pub mod eventfd;
+#[cfg(any(target_os = "linux", target_os = "android"))]
+pub mod eventfd;
 
 #[cfg(not(target_os = "ios"))]
 pub mod ioctl;
