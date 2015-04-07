@@ -117,6 +117,9 @@
 <span id="75">75</span>
 <span id="76">76</span>
 <span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>libc</span>::{<span class='ident'>c_char</span>};
@@ -147,6 +150,9 @@
     <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
     <span class='ident'>domainname</span>: [<span class='ident'>c_char</span>; <span class='ident'>UTSNAME_LEN</span>]
 }
+
+<span class='comment'>// workaround for `derive(Clone)` not working for fixed-length arrays</span>
+<span class='kw'>impl</span> <span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>UtsName</span> { <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>UtsName</span> { <span class='op'>*</span><span class='self'>self</span> } }
 
 <span class='kw'>impl</span> <span class='ident'>UtsName</span> {
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>sysname</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span> {

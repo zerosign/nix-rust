@@ -797,7 +797,7 @@
  *
  */</span>
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Ipv6Addr</span>(<span class='kw'>pub</span> <span class='ident'>libc</span>::<span class='ident'>in6_addr</span>);
 
 <span class='kw'>impl</span> <span class='ident'>Ipv6Addr</span> {

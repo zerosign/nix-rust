@@ -103,7 +103,7 @@
     }
 );
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>WaitStatus</span> {
     <span class='ident'>Exited</span>(<span class='ident'>pid_t</span>),
     <span class='ident'>StillAlive</span>

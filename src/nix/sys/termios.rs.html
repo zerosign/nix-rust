@@ -621,7 +621,7 @@
         <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>speed_t</span> <span class='op'>=</span> <span class='ident'>c_ulong</span>;
 
         <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Termios</span> {
             <span class='kw'>pub</span> <span class='ident'>c_iflag</span>: <span class='ident'>InputFlags</span>,
             <span class='kw'>pub</span> <span class='ident'>c_oflag</span>: <span class='ident'>OutputFlags</span>,
@@ -747,7 +747,7 @@
 
         <span class='comment'>// XXX: We&#39;re using `repr(C)` because `c_int` doesn&#39;t work here.</span>
         <span class='comment'>// See https://github.com/rust-lang/rust/issues/10374.</span>
-        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
         <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>SetArg</span> {
             <span class='ident'>TCSANOW</span>   <span class='op'>=</span> <span class='number'>0</span>,
@@ -758,7 +758,7 @@
 
         <span class='comment'>// XXX: We&#39;re using `repr(C)` because `c_int` doesn&#39;t work here.</span>
         <span class='comment'>// See https://github.com/rust-lang/rust/issues/10374.</span>
-        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
         <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>FlushArg</span> {
             <span class='ident'>TCIFLUSH</span>  <span class='op'>=</span> <span class='number'>1</span>,
@@ -768,7 +768,7 @@
 
         <span class='comment'>// XXX: We&#39;re using `repr(C)` because `c_int` doesn&#39;t work here.</span>
         <span class='comment'>// See https://github.com/rust-lang/rust/issues/10374.</span>
-        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
         <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>FlowArg</span> {
             <span class='ident'>TCOOFF</span> <span class='op'>=</span> <span class='number'>1</span>,
@@ -787,7 +787,7 @@
         <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>speed_t</span> <span class='op'>=</span> <span class='ident'>c_uint</span>;
 
         <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Termios</span> {
             <span class='kw'>pub</span> <span class='ident'>c_iflag</span>: <span class='ident'>InputFlags</span>,
             <span class='kw'>pub</span> <span class='ident'>c_oflag</span>: <span class='ident'>OutputFlags</span>,
@@ -901,7 +901,7 @@
 
         <span class='comment'>// XXX: We&#39;re using `repr(C)` because `c_int` doesn&#39;t work here.</span>
         <span class='comment'>// See https://github.com/rust-lang/rust/issues/10374.</span>
-        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
         <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>SetArg</span> {
             <span class='ident'>TCSANOW</span>   <span class='op'>=</span> <span class='number'>0</span>,
@@ -911,7 +911,7 @@
 
         <span class='comment'>// XXX: We&#39;re using `repr(C)` because `c_int` doesn&#39;t work here.</span>
         <span class='comment'>// See https://github.com/rust-lang/rust/issues/10374.</span>
-        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
         <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>FlushArg</span> {
             <span class='ident'>TCIFLUSH</span>  <span class='op'>=</span> <span class='number'>0</span>,
@@ -921,7 +921,7 @@
 
         <span class='comment'>// XXX: We&#39;re using `repr(C)` because `c_int` doesn&#39;t work here.</span>
         <span class='comment'>// See https://github.com/rust-lang/rust/issues/10374.</span>
-        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+        <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
         <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>FlowArg</span> {
             <span class='ident'>TCOOFF</span> <span class='op'>=</span> <span class='number'>0</span>,

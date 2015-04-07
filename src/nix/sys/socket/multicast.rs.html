@@ -72,7 +72,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
     <span class='kw'>pub</span> <span class='ident'>imr_multiaddr</span>: <span class='ident'>in_addr</span>,
     <span class='kw'>pub</span> <span class='ident'>imr_interface</span>: <span class='ident'>in_addr</span>,
